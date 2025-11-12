@@ -1,3 +1,23 @@
+## Docker Overview
+
+**What is Docker?**
+
+Docker is an open-source platform that automates the deployment, scaling, and management of applications using containerization technology.
+It allows developers to package applications and their dependencies into standardized units called containers, which can run
+consistently across diﬀerent environments.
+
+**Key Concepts:**
+
+1. Containerization: A lightweight form of virtualization that packages applications and their dependencies together.
+
+2. Docker Engine: The runtime that allows you to build and run containers.
+
+3. Docker Image: A read-only template used to create containers.
+
+4. Docker Container: A runnable instance of a Docker image.
+
+5. Docker Hub: A cloud-based registry for storing and sharing Docker images.
+
 # Simple Web Application
 
 This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
