@@ -222,6 +222,35 @@ docker run -p 8001:5000 rk/webapp
 
 For services like MySQL, you may choose to map its default port (3306) or an alternate host port (e.g., 8306) to allow multiple instances to operate concurrently without conflict.
 
+**11.Data Persistence with Docker Volumes:**
+
+By default, a MySQL container stores its data in /var/lib/mysql inside the container. However, since container filesystems are ephemeral, all data is lost when the container is removed. Consider the following example:
+
+docker run mysql   
+
+docker stop mysql    
+
+docker rm mysql  
+
+All stored data is removed along with the container. To persist the data, mount a directory from your Docker host into the container. For example, create a directory /opt/datadir on your host and run:
+
+**docker run -v /opt/datadir:/var/lib/mysql mysql**
+
+This volume mapping ensures that the data in /opt/datadir remains intact even if the container is deleted.
+
+**12.Inspecting Running Containers**
+
+To retrieve basic information about your running containers, use the docker ps command, which lists container names and IDs. For detailed information about a particular container, the docker inspect command provides comprehensive configuration details in JSON format. 
+
+Use docker inspect when you need to review the complete state and configuration of a container.
+
+**13.Viewing Container Logs**
+
+If you launch a container in detached mode using the -d flag, you may want to view its logs later. The docker logs command displays the standard output of a container. 
+To view logs from a container named “blissful_hopper,” run:
+
+**docker logs blissful_hopper**
+
 
 
 # Simple Web Application
