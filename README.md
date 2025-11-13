@@ -190,6 +190,40 @@ Untagged: mysql@sha256:569c4128dfa625ac2ac62cdd8af588a3a6a60a049d1a8d8f0fac95880
 Deleted: sha256:f6b0ca07d79d7d19c8da64558c3ccdd4ea635ac2193f551a1cb5370f33b494e8
 Deleted: sha256:27ef7ea60fab350
 
+
+**9.Running a Redis Container with Specific Version using Tags:**
+
+docker run redis:4.0
+
+
+**10.Port Mapping for Containerized Web Applications:**
+
+When running a containerized web application that listens on port 5000, the container’s internal IP (e.g., 172.17.0.2) is only accessible within the Docker host. 
+
+To expose the application externally, you must map a free host port to the container’s port using the -p parameter.
+
+For instance, to route traffic from port 80 on your Docker host to port 5000 in the container, run:
+
+
+**docker run rk/webapp**
+
+* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+
+
+**docker run -p 80:5000 rk/webapp**
+
+Now, users can access your web application via http://192.168.1.5:80 (assuming 192.168.1.5 is the Docker host IP). You can also run multiple instances of your application by mapping different host ports:
+
+docker run -p 80:5000 rk/webapp
+
+docker run -p 8000:5000 rk/webapp
+
+docker run -p 8001:5000 rk/webapp
+
+For services like MySQL, you may choose to map its default port (3306) or an alternate host port (e.g., 8306) to allow multiple instances to operate concurrently without conflict.
+
+
+
 # Simple Web Application
 
 This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
