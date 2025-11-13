@@ -91,10 +91,11 @@ To list all containers, including those that have stopped or exited, add the -a 
 
 To stop a running container, provide the container ID or name. First, confirm the container details with:
 
-**docker ps**
+docker ps
+
 Then, stop the container by running:
 
-**docker stop silly_sammet**
+docker stop silly_sammet
 
 After stopping, running docker ps will show no active containers. 
 
@@ -251,8 +252,6 @@ Status: Downloaded newer image for rk/simple-webapp:blue
 6b28d8833ff3c8c4ae965ee02f7eb6bc6c7b6ee826f607230cbe1c137c18e087
 
 
-
-
 **11.Data Persistence with Docker Volumes:**
 
 By default, a MySQL container stores its data in /var/lib/mysql inside the container. However, since container filesystems are ephemeral, all data is lost when the container is removed. Consider the following example:
@@ -357,13 +356,21 @@ After verifying your web application inside a Docker container, you can now crea
 Create a project directory (e.g., my-simple-webapp) and add a file named Dockerfile with the following content:
 
 FROM ubuntu
-# Update package lists and install Python and pip
+
+Update package lists and install Python and pip
+
 RUN apt-get update && apt-get install -y python python-pip
-# Install Flask via pip
+
+Install Flask via pip
+
 RUN pip install flask
-# Copy application source code into the container
+
+Copy application source code into the container
+
 COPY app.py /opt/app.py
-# Set the entrypoint to run the Flask application
+
+Set the entrypoint to run the Flask application
+
 ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--app", "/opt/app.py"]
 
 Ensure that your app.py file is in the same directory as your Dockerfile.
@@ -441,54 +448,50 @@ ENV APP_HOME=/app NODE_ENV=production
 
 These variables persist when a container is run from the resulting 70 image.
 
-4.WORKDIR: WORKDIR sets the working directory for any subsequent RUN, CMD,
-ENTRYPOINT, COPY, and ADD instructions.
-WORKDIR /app
-If the directory doesn't exist, it will be created.
-COPY and ADD
-Both COPY and ADD instructions copy files from the host into the image.
-COPY package.json .
-ADD https://example.com/big.tar.xz /usr/src/things/
-COPY is generally preferred for its simplicity. ADD has some extra
-features like tar extraction and remote URL support, but these can
-make build behavior less predictable.
-RUN
-RUN executes commands in a new layer on top of the current image and
-commits the results.
-RUN apt-get update && apt-get install -y nodejs
-It's a best practice to chain commands with && and clean up in the same
-RUN instruction to keep layers small.
-71
-CMD
-CMD provides defaults for an executing container. There can only be one
-CMD instruction in a Dockerfile.
-CMD ["node", "app.js"]
-CMD can be overridden at runtime.
-ENTRYPOINT
-ENTRYPOINT configures a container that will run as an executable.
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
-ENTRYPOINT is often used in combination with CMD, where ENTRYPOINT
-defines the executable and CMD supplies default arguments.
-EXPOSE
-EXPOSE informs Docker that the container listens on specified network
-ports at runtime.
-EXPOSE 80 443
-This doesn't actually publish the port; it functions as documentation
-between the person who builds the image and the person who runs the
-container.
-72
-VOLUME
-VOLUME creates a mount point and marks it as holding externally
-mounted volumes from native host or other containers.
-VOLUME /data
-This is useful for any mutable and/or user-serviceable parts of your
-image.
-ARG
-ARG defines a variable that users can pass at build-time to the builder
-with the docker build command.
-ARG VERSION=latest
-This allows for more flexible image builds.
+4.WORKDIR: WORKDIR sets the working directory for any subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD instructions.
 
+WORKDIR /app : If the directory doesn't exist, it will be created.
+5.COPY and ADD : Both COPY and ADD instructions copy files from the host into the image.
+COPY package.json .
+
+ADD https://example.com/big.tar.xz /usr/src/things/
+
+COPY is generally preferred for its simplicity. ADD has some extra features like tar extraction and remote URL support, but these can make build behavior less predictable.
+6. RUN : RUN executes commands in a new layer on top of the current image and commits the results.
+
+RUN apt-get update && apt-get install -y nodejs
+
+It's a best practice to chain commands with && and clean up in the same RUN instruction to keep layers small.
+
+7. CMD : CMD provides defaults for an executing container. There can only be one
+
+CMD instruction in a Dockerfile.
+
+CMD ["node", "app.js"]
+
+CMD can be overridden at runtime.
+8.ENTRYPOINT: ENTRYPOINT configures a container that will run as an executable.
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+ENTRYPOINT is often used in combination with CMD, where ENTRYPOINT defines the executable and CMD supplies default arguments.
+
+9. EXPOSE informs Docker that the container listens on specified network ports at runtime.
+
+EXPOSE 80 443
+
+This doesn't actually publish the port; it functions as documentation between the person who builds the image and the person who runs the container.
+
+10. VOLUME: VOLUME creates a mount point and marks it as holding externally mounted volumes from native host or other containers.
+
+VOLUME /data
+
+This is useful for any mutable and/or user-serviceable parts of your image.
+11. ARG : ARG defines a variable that users can pass at build-time to the builder with the docker build command.
+
+ARG VERSION=latest
+
+This allows for more flexible image builds.
 
 
 
