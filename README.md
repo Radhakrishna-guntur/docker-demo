@@ -178,8 +178,17 @@ To run the web application in detached (background) mode, add the -d option:
 
 **~ ➜  docker ps **  
 
-CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS         PORTS     NAMES
-8e37a3bde73f   nginx:1.14-alpine   "nginx -g 'daemon of…"   4 seconds ago   Up 4 seconds   80/tcp    webapp
+CONTAINER ID           IMAGE                     COMMAND                     CREATED            STATUS                PORTS           NAMES
+8e37a3bde73f          nginx:1.14-alpine      "nginx -g 'daemon of…"      4 seconds ago        Up 4 seconds        80/tcp            webapp
+
+
+**8.Delete all images on the host**
+
+~ ➜  docker rmi $(docker images -aq)
+Untagged: mysql:latest
+Untagged: mysql@sha256:569c4128dfa625ac2ac62cdd8af588a3a6a60a049d1a8d8f0fac95880ecdbbe5
+Deleted: sha256:f6b0ca07d79d7d19c8da64558c3ccdd4ea635ac2193f551a1cb5370f33b494e8
+Deleted: sha256:27ef7ea60fab350
 
 # Simple Web Application
 
