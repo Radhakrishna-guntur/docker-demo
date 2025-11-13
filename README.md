@@ -285,6 +285,68 @@ To view logs from a container named “blissful_hopper,” run:
 
 # Docker Images:
 
+How to build your own Docker image:
+
+Custom Docker images are useful when you can't find a specific component on Docker Hub or when containerizing an application for easier deployment and portability is required.
+
+Create a file called Dockerfile and add instructions for setting up your application by installing dependencies, copying the source code, and setting the entrypoint. 
+Below is an example Dockerfile:
+
+
+FROM ubuntu
+
+
+RUN apt-get update && apt-get install -y python python-pip
+
+
+RUN pip install flask flask-mysql
+
+
+COPY . /opt/source-code
+
+
+ENTRYPOINT ["sh", "-c", "FLASK_APP=/opt/source-code/app.py flask run"]
+
+
+A Dockerfile is a plain text file defining a series of instructions and arguments that Docker interprets to create an image. Here is an explanation of each instruction used in our example:
+
+**FROM:** Sets the base image—in this case, Ubuntu. Every Dockerfile begins with a FROM instruction referencing an existing image on Docker Hub.
+
+**RUN:** Executes commands in the container. In the Dockerfile, the first RUN command updates the package lists and installs necessary packages. Combining commands with && minimizes the image layers.
+
+**COPY:** Transfers files from your local system into the image. Here, it copies the source code to /opt/source-code.
+
+**ENTRYPOINT:** Specifies the command that runs when the container starts. 
+In this example, it sets the environment variable FLASK_APP and starts the Flask web server.
+
+Docker’s layered architecture means that each Dockerfile instruction creates a new layer. For instance:
+
+The base Ubuntu OS.
+
+APT updates and the installation of required packages.
+
+Python package installation.
+
+Copying of the source code.
+
+Setting of the ENTRYPOINT.
+
+Because each layer only adds the differences from the previous one, the final image size only includes these changes. 
+You can inspect these layers with the **docker history** command.
+
+
+<img width="1367" height="710" alt="Screenshot 2025-11-13 at 2 40 30 PM" src="https://github.com/user-attachments/assets/d8b404ad-d343-4c6a-8f34-6b6ba4e71f89" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Simple Web Application
