@@ -222,6 +222,37 @@ docker run -p 8001:5000 rk/webapp
 
 For services like MySQL, you may choose to map its default port (3306) or an alternate host port (e.g., 8306) to allow multiple instances to operate concurrently without conflict.
 
+
+**Note:** In the PORTS column of docker ps, the format is hostPort->containerPort. The value after -> is the container (internal) port.
+
+case:1 Which of the following ports are mapped on the container side (i.e., exposed inside the container)?
+
+80 & 3456
+
+case2: Run an instance of rk/simple-webapp:blue and name the container blue-app, mapping port 8080 on the container to port 38282 on the host
+
+Run the command: **docker run -p 38282:8080 --name blue-app rk/simple-webapp:blue**
+
+**~ ➜  docker run -d --name blue-app -p 38282:8080 rk/simple-webapp:blue**
+
+
+Unable to find image 'rk/simple-webapp:blue' locally
+blue: Pulling from rk/simple-webapp
+4fe2ade4980c: Already exists 
+7cf6a1d62200: Already exists 
+f0d690b9e495: Already exists 
+fac5d45ad062: Already exists 
+a6fc8a0deb7d: Pull complete 
+f43c8e496f88: Pull complete 
+58ca939f7651: Pull complete 
+095a1a007cdb: Pull complete 
+Digest: sha256:9caf15476dc60b77c7460791bea8ea5f6ca02b90199aabe088beea83bc943fe5
+Status: Downloaded newer image for rk/simple-webapp:blue
+6b28d8833ff3c8c4ae965ee02f7eb6bc6c7b6ee826f607230cbe1c137c18e087
+
+
+
+
 **11.Data Persistence with Docker Volumes:**
 
 By default, a MySQL container stores its data in /var/lib/mysql inside the container. However, since container filesystems are ephemeral, all data is lost when the container is removed. Consider the following example:
@@ -250,6 +281,9 @@ If you launch a container in detached mode using the -d flag, you may want to vi
 To view logs from a container named “blissful_hopper,” run:
 
 **docker logs blissful_hopper**
+
+
+# Docker Images:
 
 
 
