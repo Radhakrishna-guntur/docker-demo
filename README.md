@@ -170,10 +170,16 @@ Consider running a simple web application container. For instance, the repositor
 
 To run the web application in detached (background) mode, add the -d option:
 
+**Example:**  Run a container with the nginx:1.14-alpine image and name it webapp. 
 
+**~ ➜  docker run -d --name webapp nginx:1.14-alpine**
 
+8e37a3bde73f69dc909e655fd19506b9506a4cb5b3dddbdeaa1d1c68fe483601
 
+**~ ➜  docker ps **  
 
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS         PORTS     NAMES
+8e37a3bde73f   nginx:1.14-alpine   "nginx -g 'daemon of…"   4 seconds ago   Up 4 seconds   80/tcp    webapp
 
 # Simple Web Application
 
