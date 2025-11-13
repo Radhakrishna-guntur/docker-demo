@@ -339,14 +339,87 @@ You can inspect these layers with the **docker history** command.
 
 
 
+**Demo Creating a new Docker Image:**
+
+**Step1:** Creating a Dockerfile to build a custom image.
+
+**Step2:** Building, running, and verifying the Docker image.
+
+**Step3:** Tagging and pushing the image to Docker Hub for public distribution.
 
 
+## Dockerizing the Application
+
+After verifying your web application inside a Docker container, you can now create a Docker image.
+
+**Creating a Dockerfile**
+
+Create a project directory (e.g., my-simple-webapp) and add a file named Dockerfile with the following content:
+
+FROM ubuntu
+# Update package lists and install Python and pip
+RUN apt-get update && apt-get install -y python python-pip
+# Install Flask via pip
+RUN pip install flask
+# Copy application source code into the container
+COPY app.py /opt/app.py
+# Set the entrypoint to run the Flask application
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--app", "/opt/app.py"]
+
+Ensure that your app.py file is in the same directory as your Dockerfile.
 
 
+**Building the Image**
+
+Build your Docker image by running:
+
+**docker build . -t my-simple-webapp**
 
 
+Docker caches each layer, so subsequent builds without changes will be faster. To verify the image was built, list your Docker images:
+
+**docker images**
+
+Your image my-simple-webapp should appear in the list.
+
+**Running the Docker Image**
+
+To run your containerized application, execute:
+
+**docker run my-simple-webapp**
+
+Without port mapping, the application is accessible only from the host or via Docker’s internal IP. To make the application accessible externally, run:
+
+**docker run -p 5000:5000 my-simple-webapp**
+
+Then, navigate to http://<HOST_IP>:5000 in your web browser.
+
+**Pushing the Image to Docker Hub**
+
+Sharing your application on Docker Hub is simple. Follow these steps:
+
+1.Tag your image using your Docker Hub username (e.g., if your username is rguntur):
+
+docker build . -t rguntur/my-simple-webapp
+
+2.Log in to Docker Hub:
+
+docker login
+
+Enter your username and password when prompted.
+
+3.Push the image to Docker Hub:
+
+docker push rguntur/my-simple-webapp
+
+If you encounter an error like “requested access to the resource is denied,” ensure that you have tagged your image with your Docker Hub account name and that you are logged in.
+
+Upon a successful push, your image will be available in your Docker Hub repository. You can view it on your Docker Hub dashboard.
 
 
+4.Others can pull your image by running:
+
+docker pull mmumshad/my-simple-webapp
 
 
 # Simple Web Application
@@ -392,3 +465,7 @@ Open a browser and go to URL
 http://<IP>:5000                            => Welcome
 http://<IP>:5000/how%20are%20you            => I am good, how about you?
 ```
+
+
+Practice these steps to master Docker containerization and share your applications with the community. Happy containerizing!
+
