@@ -665,4 +665,32 @@ The Docker Engine ensures that containers are isolated from each other and bundl
 
 <img width="793" height="568" alt="image" src="https://github.com/user-attachments/assets/117ebf98-364b-42f8-a8e4-f1b7358d97cc" />
 
- 
+## How Containers Isolate Applications:
+
+Docker leverages Linux namespaces to isolate various system resources including:
+
+**Workspaces**
+
+**Process IDs**
+
+**Network interfaces**
+
+**Inter-process communication (IPC)**
+
+**Filesystem mounts**
+
+**Unix time-sharing systems**
+
+This isolation provides containers with the appearance of independent systems while sharing hardware resources with the host.
+
+**Managing Resources with cgroups**:
+
+Containers by default can use as much resource as they require, which may lead to resource exhaustion on the host. Docker utilizes Linux control groups (cgroups) to constrain the hardware resources available to each container, ensuring efficient resource management.
+
+You can limit resource usage by employing options such as --cpus and --memory. For instance, to restrict a container to using only 50% of the host CPU and 100 megabytes of memory, run:
+
+**docker run --cpus=0.5 ubuntu**
+
+**docker run --memory=100m ubuntu**
+
+
