@@ -548,3 +548,121 @@ http://<IP>:5000/how%20are%20you            => I am good, how about you?
 
 Practice these steps to master Docker containerization and share your applications with the community. Happy containerizing!
 
+
+## Docker Compose:
+
+Docker Compose is a tool used for defining and running multi-container Docker applications. It simplifies the management of complex applications that consist of multiple interconnected services, each running in its own Docker container. 
+
+**Primary uses of Docker Compose include:**
+
+**Defining Multi-Container Applications:** Compose uses a YAML file (typically docker-compose.yml) to define all the services that constitute an application. This file specifies details like the Docker images to use, port mappings, volume mounts, environment variables, dependencies between services, and network configurations.
+
+**Orchestrating Service Lifecycle:** With a single command, docker compose up, Compose can build (if necessary), create, and start all the services defined in the docker-compose.yml file. Similarly, docker compose down can stop and remove all associated containers, networks, and volumes.
+
+**Simplifying Development Workflows:** Developers can define their entire application stack in a docker-compose.yml file, making it easy to share and reproduce development environments. This allows team members to quickly set up and run the application with consistent configurations.
+
+**Managing Dependencies and Order:** Compose understands service dependencies and can start services in the correct order, ensuring that, for example, a database service is running before an application service attempts to connect to it.
+
+**Streamlining Configuration:** Instead of manually running multiple docker run commands with complex arguments, Compose provides a declarative way to specify all container configurations in a single, human-readable file.
+
+In essence, Docker Compose acts as an orchestration tool for local development and testing environments, making it significantly easier to manage and interact with multi-container Docker applications.
+
+
+**Sample Docker Compose File:** 
+
+redis:
+  image: redis
+db:
+  image: postgres:9.4
+vote:
+  image: voting-app
+  ports:
+    - 5000:80
+  links:
+    - redis
+result:
+  image: result-app
+  ports:
+    - 5001:80
+  links:
+    - db
+worker:
+  image: worker
+  links:
+    - redis
+    - db
+
+
+**Configuring Networks in Docker Compose**
+
+Docker Compose lets you define custom networks to control traffic between services. For instance, you might separate external (user-facing) traffic from internal (service-to-service) communication.
+
+**Example: Defining Separate Networks**
+
+This example configuration connects the voting and results applications to both the front-end (user traffic) and back-end (internal services) networks, while Redis and PostgreSQL are only accessible on the back-end network.
+
+version: 2
+services:
+  redis:
+    image: redis
+    networks:
+      - back-end
+  db:
+    image: postgres:9.4
+    networks:
+      - back-end
+  vote:
+    image: voting-app
+    ports:
+      - 5000:80
+    networks:
+      - front-end
+      - back-end
+  result:
+    image: result
+    ports:
+      - 5001:80
+    networks:
+      - front-end
+      - back-end
+networks:
+  front-end:
+  back-end:
+  
+  This configuration ensures that internal data remains secure while still allowing user access to essential services.
+
+
+**Use Dry Run mode to test your command**
+
+Use --dry-run flag to test a command without changing your application stack state. Dry Run mode shows you all the steps Compose applies when executing a command, for example:
+
+ docker compose --dry-run up --build -d
+[+] Pulling 1/1
+ ✔ DRY-RUN MODE -  db Pulled                                                                                                                                                                                                               0.9s
+[+] Running 10/8
+ ✔ DRY-RUN MODE -    build service backend                                                                                                                                                                                                 0.0s
+ ✔ DRY-RUN MODE -  ==> ==> writing image dryRun-754a08ddf8bcb1cf22f310f09206dd783d42f7dd        
+
+
+ **Docker Engine:** 
+
+ Docker Engine is the core component of the Docker platform, providing the runtime environment for containers. It is an open-source client-server application that enables users to build, run, and manage containerized applications.
+ 
+**Key components of Docker Engine:**
+
+**Docker Daemon (dockerd):** This is a long-running background process that runs on the host machine. It manages Docker objects such as images, containers, networks, and volumes. The daemon listens for API requests and performs the necessary actions to build, run, and monitor containers.
+
+**REST API:** This specifies the interfaces that programs and the Docker CLI use to communicate with and instruct the Docker Daemon.
+
+**Docker CLI (Command Line Interface):** This is the primary way users interact with Docker Engine. Users issue docker commands through the CLI, which then uses the REST API to send instructions to the Docker Daemon.
+
+**How it works:**
+
+When a user issues a command like docker run via the CLI, the command is sent to the Docker Daemon through the REST API.
+The Docker Daemon then takes this instruction and performs the necessary actions, such as pulling a Docker image, creating a container from that image, and running the application within the container.
+
+The Docker Engine ensures that containers are isolated from each other and bundle their own software, libraries, and configuration files, allowing them to run consistently across different environments.
+
+<img width="793" height="568" alt="image" src="https://github.com/user-attachments/assets/117ebf98-364b-42f8-a8e4-f1b7358d97cc" />
+
+ 
