@@ -693,4 +693,63 @@ You can limit resource usage by employing options such as --cpus and --memory. F
 
 **docker run --memory=100m ubuntu**
 
+# Docker Storage
+
+**Docker's File Storage Architecture**:
+
+When Docker is installed, it establishes a directory structure typically at /var/lib/docker. This root directory contains several subdirectories that serve different purposes:
+
+**containers:** Stores files related to running containers.
+
+**images:** Contains image-related files.
+
+**volumes:** Holds data for Docker volumes.
+
+**overlay2:** Manages the overlay filesystem for layering.
+
+
+
+**Docker's Layered Architecture**:
+
+Docker images are constructed using a layered approach. Each instruction in a Dockerfile creates a distinct layer that only contains changes from the previous layer. 
+For example, consider the following Dockerfile:
+
+FROM ubuntu
+
+RUN apt-get update && apt-get -y install python
+
+RUN pip install flask flask-mysql
+
+COPY . /opt/source-code
+
+ENTRYPOINT ["flask", "run"]
+
+
+**Build the image using:**
+
+docker build -t mummshad/my-custom-app .
+
+
+**In this Dockerfile:**
+
+**Base Image:** The first layer pulls the Ubuntu base image.
+
+**APT Packages:** The second layer installs necessary APT packages.
+
+**Python Packages:** The third layer installs Python packages required by the application.
+
+**Source Code:** The fourth layer copies your application code into the container.
+
+**Entrypoint:** The final layer sets the container's entry point.
+
+Because each layer contains only the incremental changes, their sizes reflect only the modifications from the previous layer. 
+For instance, even if the base Ubuntu image is large, layers that add extra packages or code remain relatively small.
+
+**Docker Storage Drivers**:
+
+Docker storage drivers manage the layered filesystem, create writable layers, and implement the copy-on-write mechanism. Popular storage drivers include AUFS, VTRFS, VFS, Device Mapper, Overlay, and Overlay2. 
+
+The default driver is determined by your operating system and kernel support. For instance, modern Ubuntu installations often use Overlay2, while Fedora or CentOS might use Device Mapper.
+
+Each driver offers different performance and stability characteristics, so it’s essential to choose the one that best meets your application needs. 
 
