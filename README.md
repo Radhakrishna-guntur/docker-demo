@@ -185,6 +185,19 @@ CONTAINER ID           IMAGE                     COMMAND                     CRE
 
 **8.Delete all images on the host**
 
+
+First Stop and delete all the containers being used by images.
+
+~ ➜  docker stop $(docker ps -aq)
+
+f397836ced8e
+
+~ ✖ docker rm $(docker ps -aq)     
+
+f397836ced8e
+
+Then run the command to delete all the available images: docker rmi $(docker images -aq)
+
 ~ ➜  docker rmi $(docker images -aq)
 Untagged: mysql:latest
 Untagged: mysql@sha256:569c4128dfa625ac2ac62cdd8af588a3a6a60a049d1a8d8f0fac95880ecdbbe5
