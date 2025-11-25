@@ -131,7 +131,9 @@ Deleted: sha256:1b0c768769e2bb66e74a2531437381a78b77feef8ea6fd7e7f4044e1
 Deleted: sha256:34138fb6002a180512485fb96f42e86fbd08c6f1a2506b11ff6b945b03f
 Deleted: sha256:cf5b3c6798f77b1f78b297b27cfa5b6caa982f04caeb5de7d13c255fd7ale
 
-5.If you want to download an image for later use without running a container immediately, use the docker pull command:
+**5.Pull Image**
+
+If you want to download an image for later use without running a container immediately, use the docker pull command:
 
 **docker pull nginx**
 
@@ -165,7 +167,7 @@ Here, the container runs the sleep command for five seconds before exiting.
 
 **7.Running a Web Application Container**
 
-Consider running a simple web application container. For instance, the repository "kodekloud/simple-webapp" contains a sample web application. Running the container in the foreground displays the application's output directly in your terminal:
+Consider running a simple web application container. For instance, the repository "rk/simple-webapp" contains a sample web application. Running the container in the foreground displays the application's output directly in your terminal:
 
 **docker run -d rk/simple-webapp**
 
