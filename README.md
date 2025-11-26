@@ -538,11 +538,6 @@ This allows for more flexible image builds.
 
 
 
-
-
-
-
-
 # Simple Web Application
 
 This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
@@ -705,7 +700,9 @@ The Docker Daemon then takes this instruction and performs the necessary actions
 
 The Docker Engine ensures that containers are isolated from each other and bundle their own software, libraries, and configuration files, allowing them to run consistently across different environments.
 
+
 <img width="793" height="568" alt="image" src="https://github.com/user-attachments/assets/117ebf98-364b-42f8-a8e4-f1b7358d97cc" />
+
 
 ## How Containers Isolate Applications:
 
@@ -754,6 +751,7 @@ When Docker is installed, it establishes a directory structure typically at /var
 **Docker's Layered Architecture**:
 
 Docker images are constructed using a layered approach. Each instruction in a Dockerfile creates a distinct layer that only contains changes from the previous layer. 
+
 For example, consider the following Dockerfile:
 
 FROM ubuntu
@@ -769,7 +767,7 @@ ENTRYPOINT ["flask", "run"]
 
 **Build the image using:**
 
-docker build -t mummshad/my-custom-app .
+**docker build -t rk/my-custom-app** 
 
 
 **In this Dockerfile:**
@@ -786,6 +784,16 @@ docker build -t mummshad/my-custom-app .
 
 Because each layer contains only the incremental changes, their sizes reflect only the modifications from the previous layer. 
 For instance, even if the base Ubuntu image is large, layers that add extra packages or code remain relatively small.
+
+
+
+<img width="1382" height="764" alt="Screenshot 2025-11-26 at 11 27 05 AM" src="https://github.com/user-attachments/assets/05e941f2-9ce7-4c63-9445-6cca68a63b3b" />
+
+
+
+<img width="1440" height="900" alt="Screenshot 2025-11-26 at 11 12 07 AM" src="https://github.com/user-attachments/assets/f0b8124f-e80c-444f-a979-8d772929b622" />
+
+
 
 **Docker Storage Drivers**:
 
