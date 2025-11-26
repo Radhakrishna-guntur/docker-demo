@@ -592,42 +592,31 @@ Docker Compose is a tool used for defining and running multi-container Docker ap
 
 **Primary uses of Docker Compose include:**
 
-**Defining Multi-Container Applications:** Compose uses a YAML file (typically docker-compose.yml) to define all the services that constitute an application. This file specifies details like the Docker images to use, port mappings, volume mounts, environment variables, dependencies between services, and network configurations.
+**Defining Multi-Container Applications:** Compose uses a YAML file (typically docker-compose.yml) to define all the services that constitute an application.
 
-**Orchestrating Service Lifecycle:** With a single command, docker compose up, Compose can build (if necessary), create, and start all the services defined in the docker-compose.yml file. Similarly, docker compose down can stop and remove all associated containers, networks, and volumes.
+This file specifies details like the Docker images to use, port mappings, volume mounts, environment variables, dependencies between services, and network configurations.
 
-**Simplifying Development Workflows:** Developers can define their entire application stack in a docker-compose.yml file, making it easy to share and reproduce development environments. This allows team members to quickly set up and run the application with consistent configurations.
+**Orchestrating Service Lifecycle:** With a single command, docker compose up, Compose can build (if necessary), create, and start all the services defined in the docker-compose.yml file.
+
+Similarly, docker compose down can stop and remove all associated containers, networks, and volumes.
+
+**Simplifying Development Workflows:** Developers can define their entire application stack in a docker-compose.yml file, making it easy to share and reproduce development environments. 
+
+This allows team members to quickly set up and run the application with consistent configurations.
 
 **Managing Dependencies and Order:** Compose understands service dependencies and can start services in the correct order, ensuring that, for example, a database service is running before an application service attempts to connect to it.
 
+
 **Streamlining Configuration:** Instead of manually running multiple docker run commands with complex arguments, Compose provides a declarative way to specify all container configurations in a single, human-readable file.
+
 
 In essence, Docker Compose acts as an orchestration tool for local development and testing environments, making it significantly easier to manage and interact with multi-container Docker applications.
 
+## Sample Docker Compose File:
 
-**Sample Docker Compose File:** 
 
-redis:
-  image: redis
-db:
-  image: postgres:9.4
-vote:
-  image: voting-app
-  ports:
-    - 5000:80
-  links:
-    - redis
-result:
-  image: result-app
-  ports:
-    - 5001:80
-  links:
-    - db
-worker:
-  image: worker
-  links:
-    - redis
-    - db
+<img width="598" height="701" alt="Screenshot 2025-11-26 at 3 09 58 PM" src="https://github.com/user-attachments/assets/cc571f15-edc8-4937-a176-bd3e66b4dbde" />
+
 
 
 **Configuring Networks in Docker Compose**
@@ -638,41 +627,20 @@ Docker Compose lets you define custom networks to control traffic between servic
 
 This example configuration connects the voting and results applications to both the front-end (user traffic) and back-end (internal services) networks, while Redis and PostgreSQL are only accessible on the back-end network.
 
-version: 2
-services:
-  redis:
-    image: redis
-    networks:
-      - back-end
-  db:
-    image: postgres:9.4
-    networks:
-      - back-end
-  vote:
-    image: voting-app
-    ports:
-      - 5000:80
-    networks:
-      - front-end
-      - back-end
-  result:
-    image: result
-    ports:
-      - 5001:80
-    networks:
-      - front-end
-      - back-end
-networks:
-  front-end:
-  back-end:
+
+
+<img width="643" height="667" alt="Screenshot 2025-11-26 at 3 04 17 PM" src="https://github.com/user-attachments/assets/b6790b9f-82fe-4049-ab83-54917fef6810" />
+
+    
   
-  This configuration ensures that internal data remains secure while still allowing user access to essential services.
+This configuration ensures that internal data remains secure while still allowing user access to essential services.
 
 
 **Use Dry Run mode to test your command**
 
 Use --dry-run flag to test a command without changing your application stack state. Dry Run mode shows you all the steps Compose applies when executing a command, for example:
 
+  
  docker compose --dry-run up --build -d
 [+] Pulling 1/1
  ✔ DRY-RUN MODE -  db Pulled                                                                                                                                                                                                               0.9s
