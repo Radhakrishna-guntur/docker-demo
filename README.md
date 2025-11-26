@@ -54,15 +54,15 @@ docker run -d -p 8080:80 username/myapp:v1
 
 **Key Concepts:**
 
-1. Containerization: A lightweight form of virtualization that packages applications and their dependencies together.
+**1. Containerization:** A lightweight form of virtualization that packages applications and their dependencies together.
 
-2. Docker Engine: The runtime that allows you to build and run containers.
+**2. Docker Engine:** The runtime that allows you to build and run containers.
 
-3. Docker Image: A read-only template used to create containers.
+**3. Docker Image:** A read-only template used to create containers.
 
-4. Docker Container: A runnable instance of a Docker image.
+**4. Docker Container:** A runnable instance of a Docker image.
 
-5. Docker Hub: A cloud-based registry for storing and sharing Docker images.
+**5. Docker Hub:** A cloud-based registry for storing and sharing Docker images.
 
 # Basic Docker Commands
 
@@ -91,11 +91,11 @@ To list all containers, including those that have stopped or exited, add the -a 
 
 To stop a running container, provide the container ID or name. First, confirm the container details with:
 
-docker ps
+**docker ps**
 
 Then, stop the container by running:
 
-docker stop silly_sammet
+**docker stop silly_sammet**
 
 After stopping, running docker ps will show no active containers. 
 
@@ -153,12 +153,15 @@ When using the Ubuntu image, simply running:
 
 will start a container that immediately exits. This occurs because Ubuntu, by default, has no long-running process. Check the container status with:
 
-docker ps -a
+**docker ps -a**
+
+
 CONTAINER ID        IMAGE               COMMAND       CREATED             STATUS                      NAMES
 45aacca36850        ubuntu              "/bin/bash"   43 seconds ago      Exited (0) 41 seconds ago   <container_name>
 
 
 To keep the container active, instruct it to run a specific command, such as sleeping for a defined duration:
+
 
 **docker run ubuntu sleep 5**
 
@@ -177,30 +180,37 @@ To run the web application in detached (background) mode, add the -d option:
 
 **~ ➜  docker run -d --name webapp nginx:1.14-alpine**
 
+
 8e37a3bde73f69dc909e655fd19506b9506a4cb5b3dddbdeaa1d1c68fe483601
 
-**~ ➜  docker ps **  
+
+**~ ➜  docker ps**
+
 
 CONTAINER ID           IMAGE                     COMMAND                     CREATED            STATUS                PORTS           NAMES
 8e37a3bde73f          nginx:1.14-alpine      "nginx -g 'daemon of…"      4 seconds ago        Up 4 seconds        80/tcp            webapp
 
 
-**8.Delete all images on the host**
+**8.Delete all Container and  images on the host**
 
 
-First Stop and delete all the containers being used by images.
+**First Stop and delete all the containers being used by images.**
 
-~ ➜  docker stop $(docker ps -aq)
-
-f397836ced8e
-
-~ ✖ docker rm $(docker ps -aq)     
+**~ ➜  docker stop $(docker ps -aq)**
 
 f397836ced8e
 
-Then run the command to delete all the available images: docker rmi $(docker images -aq)
+**~ ✖ docker rm $(docker ps -aq)**     
+
+f397836ced8e
+
+**Then run the command to delete all the available images:** 
+
+**docker rmi $(docker images -aq)**
 
 ~ ➜  docker rmi $(docker images -aq)
+
+
 Untagged: mysql:latest
 Untagged: mysql@sha256:569c4128dfa625ac2ac62cdd8af588a3a6a60a049d1a8d8f0fac95880ecdbbe5
 Deleted: sha256:f6b0ca07d79d7d19c8da64558c3ccdd4ea635ac2193f551a1cb5370f33b494e8
@@ -209,14 +219,15 @@ Deleted: sha256:27ef7ea60fab350
 
 **9.Running a Redis Container with Specific Version using Tags:**
 
-docker run redis:4.0
+**docker run redis:4.0**
 
 
 **10.Port Mapping for Containerized Web Applications:**
 
+
 When running a containerized web application that listens on port 5000, the container’s internal IP (e.g., 172.17.0.2) is only accessible within the Docker host. 
 
-To expose the application externally, you must map a free host port to the container’s port using the -p parameter.
+To expose the application externally, you must map a free host port to the container’s port using the ** -p ** parameter.
 
 For instance, to route traffic from port 80 on your Docker host to port 5000 in the container, run:
 
@@ -247,13 +258,17 @@ case:1 Which of the following ports are mapped on the container side (i.e., expo
 
 case2: Run an instance of rk/simple-webapp:blue and name the container blue-app, mapping port 8080 on the container to port 38282 on the host
 
-Run the command: **docker run -p 38282:8080 --name blue-app rk/simple-webapp:blue**
+Run the command:
+
+**docker run -p 38282:8080 --name blue-app rk/simple-webapp:blue**
 
 **~ ➜  docker run -d --name blue-app -p 38282:8080 rk/simple-webapp:blue**
 
 
 Unable to find image 'rk/simple-webapp:blue' locally
+
 blue: Pulling from rk/simple-webapp
+
 4fe2ade4980c: Already exists 
 7cf6a1d62200: Already exists 
 f0d690b9e495: Already exists 
@@ -309,7 +324,6 @@ Below is an example Dockerfile:
 
 FROM ubuntu
 
-
 RUN apt-get update && apt-get install -y python python-pip
 
 
@@ -321,6 +335,10 @@ COPY . /opt/source-code
 
 ENTRYPOINT ["sh", "-c", "FLASK_APP=/opt/source-code/app.py flask run"]
 
+
+<img width="1440" height="900" alt="Screenshot 2025-11-26 at 11 12 07 AM" src="https://github.com/user-attachments/assets/3d86adb8-2361-4fba-84e6-98139d9e8c41" />
+
+NOte: pics ate capture from Mumshad course for better understanding the topics.
 
 A Dockerfile is a plain text file defining a series of instructions and arguments that Docker interprets to create an image. Here is an explanation of each instruction used in our example:
 
@@ -420,17 +438,17 @@ Then, navigate to http://<HOST_IP>:5000 in your web browser.
 
 Sharing your application on Docker Hub is simple. Follow these steps:
 
-1.Tag your image using your Docker Hub username (e.g., if your username is rguntur):
+**1.Tag your image using your Docker Hub username (e.g., if your username is rguntur):**
 
 docker build . -t rguntur/my-simple-webapp
 
-2.Log in to Docker Hub:
+**2.Log in to Docker Hub:**
 
 docker login
 
 Enter your username and password when prompted.
 
-3.Push the image to Docker Hub:
+**3.Push the image to Docker Hub:**
 
 docker push rguntur/my-simple-webapp
 
@@ -439,70 +457,79 @@ If you encounter an error like “requested access to the resource is denied,”
 Upon a successful push, your image will be available in your Docker Hub repository. You can view it on your Docker Hub dashboard.
 
 
-4.Others can pull your image by running:
+**4.Others can pull your image by running:**
 
 docker pull mmumshad/my-simple-webapp
 
 
 **Dockerfile Instructions**
-1.FROM : The FROM instruction initializes a new build stage and sets the base image for subsequent instructions.
+
+
+**1.FROM : The FROM instruction initializes a new build stage and sets the base image for subsequent instructions.**
 
 FROM ubuntu:20.04
 
 This instruction is typically the first one in a Dockerfile. It's possible to have multiple FROM instructions in a single Dockerfile for multi-stage builds.
-2.LABEL: LABEL adds metadata to an image in key-value pair format. 
+
+**2.LABEL: LABEL adds metadata to an image in key-value pair format.** 
 
 LABEL version="1.0" maintainer="john@example.com"
 
 description="This is a sample Docker image"
 
 Labels are useful for image organization, licensing information, annotations, and other metadata.
-3.ENV: ENV sets environment variables in the image.
+
+**3.ENV: ENV sets environment variables in the image.**
 
 ENV APP_HOME=/app NODE_ENV=production
 
 These variables persist when a container is run from the resulting 70 image.
 
-4.WORKDIR: WORKDIR sets the working directory for any subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD instructions.
+**4.WORKDIR: WORKDIR sets the working directory for any subsequent RUN, CMD, ENTRYPOINT, COPY, and ADD instructions.**
 
 WORKDIR /app : If the directory doesn't exist, it will be created.
-5.COPY and ADD : Both COPY and ADD instructions copy files from the host into the image.
+
+**5.COPY and ADD : Both COPY and ADD instructions copy files from the host into the image.**
+
 COPY package.json .
 
 ADD https://example.com/big.tar.xz /usr/src/things/
 
 COPY is generally preferred for its simplicity. ADD has some extra features like tar extraction and remote URL support, but these can make build behavior less predictable.
-6. RUN : RUN executes commands in a new layer on top of the current image and commits the results.
+
+**6. RUN : RUN executes commands in a new layer on top of the current image and commits the results.**
 
 RUN apt-get update && apt-get install -y nodejs
 
 It's a best practice to chain commands with && and clean up in the same RUN instruction to keep layers small.
 
-7. CMD : CMD provides defaults for an executing container. There can only be one
+**7. CMD : CMD provides defaults for an executing container. There can only be one**
 
 CMD instruction in a Dockerfile.
 
 CMD ["node", "app.js"]
 
 CMD can be overridden at runtime.
-8.ENTRYPOINT: ENTRYPOINT configures a container that will run as an executable.
+
+**8.ENTRYPOINT: ENTRYPOINT configures a container that will run as an executable.**
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
 ENTRYPOINT is often used in combination with CMD, where ENTRYPOINT defines the executable and CMD supplies default arguments.
 
-9. EXPOSE informs Docker that the container listens on specified network ports at runtime.
+**9. EXPOSE informs Docker that the container listens on specified network ports at runtime.**
 
 EXPOSE 80 443
 
 This doesn't actually publish the port; it functions as documentation between the person who builds the image and the person who runs the container.
 
-10. VOLUME: VOLUME creates a mount point and marks it as holding externally mounted volumes from native host or other containers.
+**10. VOLUME: VOLUME creates a mount point and marks it as holding externally mounted volumes from native host or other containers.**
 
 VOLUME /data
 
 This is useful for any mutable and/or user-serviceable parts of your image.
-11. ARG : ARG defines a variable that users can pass at build-time to the builder with the docker build command.
+
+**11. ARG : ARG defines a variable that users can pass at build-time to the builder with the docker build command.**
 
 ARG VERSION=latest
 
