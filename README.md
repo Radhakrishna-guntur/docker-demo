@@ -586,9 +586,11 @@ http://<IP>:5000/how%20are%20you            => I am good, how about you?
 Practice these steps to master Docker containerization and share your applications with the community. Happy containerizing!
 
 
-## Docker Compose:
+# Docker Compose:
 
-Docker Compose is a tool used for defining and running multi-container Docker applications. It simplifies the management of complex applications that consist of multiple interconnected services, each running in its own Docker container. 
+Docker Compose is a tool used for defining and running multi-container Docker applications. 
+
+It simplifies the management of complex applications that consist of multiple interconnected services, each running in its own Docker container. 
 
 **Primary uses of Docker Compose include:**
 
@@ -638,15 +640,29 @@ This configuration ensures that internal data remains secure while still allowin
 
 **Use Dry Run mode to test your command**
 
-Use --dry-run flag to test a command without changing your application stack state. Dry Run mode shows you all the steps Compose applies when executing a command, for example:
+Use --dry-run flag to test a command without changing your application stack state.
+
+Dry Run mode shows you all the steps Compose applies when executing a command, for example:
 
   
- docker compose --dry-run up --build -d
+ **docker compose --dry-run up --build -d**
+ 
+ 
 [+] Pulling 1/1
+
  ✔ DRY-RUN MODE -  db Pulled                                                                                                                                                                                                               0.9s
+ 
 [+] Running 10/8
+
  ✔ DRY-RUN MODE -    build service backend                                                                                                                                                                                                 0.0s
+ 
  ✔ DRY-RUN MODE -  ==> ==> writing image dryRun-754a08ddf8bcb1cf22f310f09206dd783d42f7dd        
+
+
+<img width="1402" height="767" alt="Screenshot 2025-11-26 at 3 17 10 PM" src="https://github.com/user-attachments/assets/2eddbf61-aed5-4dbd-af97-b296b3dc81fc" />
+
+
+<img width="1045" height="508" alt="Screenshot 2025-11-26 at 3 16 11 PM" src="https://github.com/user-attachments/assets/edc7c6a3-c444-415f-819b-a45e30548810" />
 
 
  **Docker Engine:** 
