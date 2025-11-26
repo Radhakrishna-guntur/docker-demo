@@ -662,24 +662,38 @@ Dry Run mode shows you all the steps Compose applies when executing a command, f
 <img width="1402" height="767" alt="Screenshot 2025-11-26 at 3 17 10 PM" src="https://github.com/user-attachments/assets/2eddbf61-aed5-4dbd-af97-b296b3dc81fc" />
 
 
-<img width="1045" height="508" alt="Screenshot 2025-11-26 at 3 16 11 PM" src="https://github.com/user-attachments/assets/edc7c6a3-c444-415f-819b-a45e30548810" />
 
 
- **Docker Engine:** 
+ # Docker Engine
 
- Docker Engine is the core component of the Docker platform, providing the runtime environment for containers. It is an open-source client-server application that enables users to build, run, and manage containerized applications.
+ Docker Engine is the core component of the Docker platform, providing the runtime environment for containers.
  
-**Key components of Docker Engine:**
+ It is an open-source client-server application that enables users to build, run, and manage containerized applications.
+ 
+## Key components of Docker Engine
 
-**Docker Daemon (dockerd):** This is a long-running background process that runs on the host machine. It manages Docker objects such as images, containers, networks, and volumes. The daemon listens for API requests and performs the necessary actions to build, run, and monitor containers.
+**Docker Daemon (dockerd):** 
 
-**REST API:** This specifies the interfaces that programs and the Docker CLI use to communicate with and instruct the Docker Daemon.
+This is a long-running background process that runs on the host machine. 
 
-**Docker CLI (Command Line Interface):** This is the primary way users interact with Docker Engine. Users issue docker commands through the CLI, which then uses the REST API to send instructions to the Docker Daemon.
+It manages Docker objects such as images, containers, networks, and volumes. 
+
+The daemon listens for API requests and performs the necessary actions to build, run, and monitor containers.
+
+**REST API:** 
+
+This specifies the interfaces that programs and the Docker CLI use to communicate with and instruct the Docker Daemon.
+
+**Docker CLI (Command Line Interface):** 
+
+This is the primary way users interact with Docker Engine. 
+
+Users issue docker commands through the CLI, which then uses the REST API to send instructions to the Docker Daemon.
 
 **How it works:**
 
 When a user issues a command like docker run via the CLI, the command is sent to the Docker Daemon through the REST API.
+
 The Docker Daemon then takes this instruction and performs the necessary actions, such as pulling a Docker image, creating a container from that image, and running the application within the container.
 
 The Docker Engine ensures that containers are isolated from each other and bundle their own software, libraries, and configuration files, allowing them to run consistently across different environments.
