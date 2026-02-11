@@ -322,17 +322,6 @@ Create a file called Dockerfile and add instructions for setting up your applica
 Below is an example Dockerfile:
 
 
-FROM ubuntu
-
-RUN apt-get update && apt-get install -y python python-pip
-
-
-RUN pip install flask flask-mysql
-
-
-COPY . /opt/source-code
-
-
 ENTRYPOINT ["sh", "-c", "FLASK_APP=/opt/source-code/app.py flask run"]
 
 
