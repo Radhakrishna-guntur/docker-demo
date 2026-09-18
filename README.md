@@ -165,7 +165,6 @@ To keep the container active, instruct it to run a specific command, such as sle
 
 **docker run ubuntu sleep 5**
 
-
 Here, the container runs the sleep command for five seconds before exiting.
 
 **7.Running a Web Application Container**
