@@ -16,7 +16,7 @@ consistently across diﬀerent environments.
 
 **Why Use Docker?**
 
-Docker oﬀers numerous advantages for developers and operations teams:
+Docker oﬀers numerous advantages for developers and operations teams
 
 **1.Consistency:** Ensures applications run the same way in development, testing, and production environments.
 
